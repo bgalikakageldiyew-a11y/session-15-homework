@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Saved Recipes • Recipe Box</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell saved-view">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-logo">📚</span>
+          <div>
+            <h1>Saved Recipes</h1>
+            <p>Browse all recipes and fetch new ideas</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="{{ url_for('index') }}" class="btn ghost">Back to editor</a>
+          {% if user %}
+          <span>{{ user.username }}</span>
+          <a href="{{ url_for('logout') }}" class="btn ghost">Logout</a>
+          {% else %}
+          <a href="{{ url_for('login') }}" class="btn ghost">Login</a>
+          <a href="{{ url_for('register') }}" class="btn ghost">Sign up</a>
+          {% endif %}
+          <button id="toggleTheme" class="btn ghost">Toggle theme</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section class="panel panel-list" style="grid-column: 1 / -1">
+          <div class="list-header">
+            <h2>All saved recipes</h2>
+            <div class="list-controls">
+              <input
+                id="search"
+                type="search"
+                placeholder="Search by title, tag, ingredient..."
+              />
+              <button
+                type="button"
+                id="addRandomRecipe"
+                class="btn ghost"
+                title="Fetch a random recipe from an online API and save it here"
+              >
+                Random recipe
+              </button>
+            </div>
+          </div>
+
+          <ul id="recipesList" class="recipes-list">
+            <!-- Filled by JS via AJAX -->
+          </ul>
+          <div id="emptyState" class="empty-state hidden">
+            <div class="empty-visual"></div>
+            <h3>No recipes yet</h3>
+            <p>
+              Add some recipes on the main page first, or try generating a random
+              recipe.
+            </p>
+            <p style="margin-top: 12px">
+              <a href="{{ url_for('index') }}" class="btn primary"
+                ><span class="btn-label">Go to editor</span></a
+              >
+            </p>
+          </div>
+        </section>
+      </main>
+      <div id="toast" class="toast"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recipe Box</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-logo">🍲</span>
+          <div>
+            <h1>Recipe Box</h1>
+            <p>Create and edit your personal recipes</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="{{ url_for('saved') }}" class="btn ghost">Saved recipes</a>
+          {% if user %}
+          <span>{{ user.username }}</span>
+          <a href="{{ url_for('logout') }}" class="btn ghost">Logout</a>
+          {% else %}
+          <a href="{{ url_for('login') }}" class="btn ghost">Login</a>
+          <a href="{{ url_for('register') }}" class="btn ghost">Sign up</a>
+          {% endif %}
+          <button id="toggleTheme" class="btn ghost">Toggle theme</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section class="panel panel-form" style="grid-column: 1 / -1">
+          <h2>Add or edit a recipe</h2>
+          <form id="recipeForm">
+            <input type="hidden" id="recipeId" />
+            <div class="field">
+              <label for="title">Title</label>
+              <input
+                id="title"
+                type="text"
+                placeholder="E.g. Creamy tomato pasta"
+                required
+              />
+            </div>
+            <div class="field two-column">
+              <div>
+                <label for="ingredients">Ingredients</label>
+                <textarea
+                  id="ingredients"
+                  rows="8"
+                  placeholder="- 200 g pasta&#10;- 2 ripe tomatoes&#10;- 1 garlic clove&#10;- pinch of salt and pepper&#10;- any optional toppings or sides..."
+                ></textarea>
+              </div>
+              <div>
+                <label for="steps">Steps</label>
+                <textarea
+                  id="steps"
+                  rows="8"
+                  placeholder="1. Prepare all ingredients&#10;2. Cook according to your method&#10;3. Add serving tips, storage notes and variations..."
+                ></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <label for="description">Short description (optional)</label>
+              <textarea
+                id="description"
+                rows="3"
+                placeholder="A quick summary, e.g. 'Creamy 15‑minute weeknight pasta for two people'."
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="tags">Tags</label>
+              <input
+                id="tags"
+                type="text"
+                placeholder="e.g. quick, vegetarian, pasta, family favorite"
+              />
+              <p class="hint">Comma separated</p>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn primary">
+                <span class="btn-label">Save recipe</span>
+                <span class="btn-spinner"></span>
+              </button>
+              <button type="button" id="resetForm" class="btn subtle">
+                Clear
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>
+

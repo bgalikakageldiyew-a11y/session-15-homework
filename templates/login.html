@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Log in • Recipe Box</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-logo">👤</span>
+          <div>
+            <h1>Recipe Box</h1>
+            <p>Log in to your cookbook</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="{{ url_for('index') }}" class="btn ghost">Back to recipes</a>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section class="panel" style="grid-column: 1 / -1">
+          <h2>Log in</h2>
+          {% if error %}
+          <p class="hint" style="color: #fecaca">{{ error }}</p>
+          {% endif %}
+          <form method="post">
+            <div class="field">
+              <label for="username">Username</label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+              />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn primary">
+                <span class="btn-label">Log in</span>
+                <span class="btn-spinner"></span>
+              </button>
+              <a href="{{ url_for('register') }}" class="btn ghost"
+                >Create an account</a
+              >
+            </div>
+          </form>
+        </section>
+      </main>
+      <div id="toast" class="toast"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>
+

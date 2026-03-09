@@ -1,0 +1,11 @@
+*.pyc
+
+__pycache__/
+
+.env
+
+*.db-journal
+
+venv/
+
+.DS_Store
